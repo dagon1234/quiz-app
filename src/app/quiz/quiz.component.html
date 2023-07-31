@@ -13,7 +13,8 @@
 
             <div class="row g-2 mt-2">
                 <div *ngFor="let choice of questions[currentQuestionIndex].choices" class="col-xs-12 col-md-6">
-                    <button (click)="onclickChoice(choice)" class="btn btn-primary" style="width: 100%;">
+                    <button (click)="onclickChoice(choice , questions[currentQuestionIndex])" class="btn btn-primary"
+                        style="width: 100%;">
                         {{choice.text}}
 
                         <div>
@@ -36,12 +37,16 @@
                 </div>
                 <div class="col-12 text-center h2">
 
-                    <div class="h3">
-                        Your Answer
-                        <ul style="text-align: left;" class="h4">
-                            <li *ngFor="let answer of usedAnswer">
-                                {{answer}}
-                            </li>
+                    <div *ngIf="usedQuestion.length === usedAnswer.length">
+                        <ul style="text-align: left;">
+                            <div class="h3">
+                                <ng-container *ngFor="let item of usedQuestion; let i = index">
+                                    <li class="h4">
+                                        {{ item }}<br />
+                                        : {{ usedAnswer[i] }}
+                                    </li>
+                                </ng-container>
+                            </div>
                         </ul>
                     </div>
 

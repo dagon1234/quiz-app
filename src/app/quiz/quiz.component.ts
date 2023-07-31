@@ -17,6 +17,7 @@ export class QuizComponent {
   isEnd = false
   score = 0
 
+  usedQuestion: string[] = []
   usedAnswer: string[] = []
 
   constructor() {
@@ -25,7 +26,7 @@ export class QuizComponent {
     this.newQuiz()
   }
 
-  onclickChoice(choice: Choice) {
+  onclickChoice(choice: Choice, question: Question) {
     this.playSound()
 
     if (choice.isAnswer) this.score++
@@ -34,6 +35,7 @@ export class QuizComponent {
       this.isEnd = true
     } else {
       this.currentQuestionIndex++
+      this.usedQuestion.push(question.text)
       this.usedAnswer.push(choice.text)
       this.questions[this.currentQuestionIndex].choices.sort((a, b) => 0.5 - Math.random())
     }
