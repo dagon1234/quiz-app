@@ -1,10 +1,10 @@
+<!--  ng generate component quiz (creat folder quiz)-->
 <div class="main vertical-center">
     <!-- แสดงคำถาม -->
     <ng-template [ngIf]="!isEnd" [ngIfElse]="showScore">
         <div class="container" style="max-width: 800px;">
             <h2>Question {{currentQuestionIndex + 1}} of {{questions.length}}</h2>
             <h3 class="mb-3 mt-3">{{questions[currentQuestionIndex].text}}</h3>
-
             <div class="row">
                 <div class="col text-center">
                     <img *ngIf="questions[currentQuestionIndex].image" [src]="questions[currentQuestionIndex].image">
