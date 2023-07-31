@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { quizData } from './data/quiz_data';
+import { Choice } from './choice';
 
 @Component({
   selector: 'app-root',
@@ -6,17 +8,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  question = {
-    text: 'Who painted the Mona Lisa?',
-    choices: [
-      'Pablo Picasso',
-      'Leonardo da Vinci',
-      'Vincent van Gogh',
-      'Michelangelo'
-    ]
+  audio = new Audio()
+
+  questions = quizData
+  currentQuestionIndex = 0
+  isEnd = false
+  score = 0
+
+  constructor() {
+    this.audio.src = './assets/audio/mixkit-arcade-retro-game-over-213.wav'
   }
 
-  onclickChoice(text: string) {
-    console.log(text)
+  onclickChoice(choice: Choice) {
+    console.log(`User clicked ${choice.text}`)
+    this.playSound()
+
+    if (choice.isAnswer) this.score++
+
+    if (this.currentQuestionIndex == this.questions.length - 1) {
+      this.isEnd = true
+    } else {
+      this.currentQuestionIndex++
+    }
+  }
+
+  playSound() {
+    this.audio.load();
+    this.audio.addEventListener('canplaythrough', () => {
+      this.audio.play();
+    })
   }
 }

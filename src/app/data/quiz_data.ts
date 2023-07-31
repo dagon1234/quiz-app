@@ -160,7 +160,7 @@ export const quizData: Question[] = [
         ],
     },
     {
-        id: 6,
+        id: 7,
         text: 'Who painted this painting?',
         image: './assets/images/starry_night.jpg',
         choices: [

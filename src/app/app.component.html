@@ -1,11 +1,36 @@
 <div class="main vertical-center">
-  <div class="container">
-    <h2>Question 1 of 10</h2>
-    <h3 class="mb-5 mt-3">{{question.text}}</h3>
-    <div class="row g-2">
-      <div *ngFor="let choice of question.choices" class="col-xs-12 col-md-6">
-        <button (click)="onclickChoice(choice)" class="btn btn-primary" style="width: 100%;">{{choice}}</button>
+  <!-- แสดงคำถาม -->
+  <ng-template [ngIf]="!isEnd" [ngIfElse]="showScore">
+    <div class="container" style="max-width: 800px;">
+      <h2>Question {{currentQuestionIndex + 1}} of {{questions.length}}</h2>
+      <h3 class="mb-3 mt-3">{{questions[currentQuestionIndex].text}}</h3>
+
+      <div class="row">
+        <div class="col text-center">
+          <img *ngIf="questions[currentQuestionIndex].image" [src]="questions[currentQuestionIndex].image">
+        </div>
+      </div>
+
+      <div class="row g-2 mt-2">
+        <div *ngFor="let choice of questions[currentQuestionIndex].choices" class="col-xs-12 col-md-6">
+          <button (click)="onclickChoice(choice)" class="btn btn-primary" style="width: 100%;">
+            {{choice.text}}
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-template>
+
+  <!-- แสดงคะแนน -->
+  <ng-template #showScore>
+    <div class="container" style="max-width: 800px;">
+
+      <div class="row">
+        <div class="col-12 text-center h2">
+          Your score : {{score}}
+        </div>
+      </div>
+
+    </div>
+  </ng-template>
 </div>
