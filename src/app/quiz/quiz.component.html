@@ -15,6 +15,11 @@
                 <div *ngFor="let choice of questions[currentQuestionIndex].choices" class="col-xs-12 col-md-6">
                     <button (click)="onclickChoice(choice)" class="btn btn-primary" style="width: 100%;">
                         {{choice.text}}
+
+                        <div>
+                            <img *ngIf="choice.image" [src]="choice.image">
+                        </div>
+
                     </button>
                 </div>
             </div>
@@ -30,6 +35,16 @@
                     Your score : {{score}}
                 </div>
                 <div class="col-12 text-center h2">
+
+                    <div class="h3">
+                        Your Answer
+                        <ul style="text-align: left;" class="h4">
+                            <li *ngFor="let answer of usedAnswer">
+                                {{answer}}
+                            </li>
+                        </ul>
+                    </div>
+
                     <button (click)="onclickNewQuiz()" class="btn btn-success">
                         New Quiz
                     </button>

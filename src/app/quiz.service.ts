@@ -14,6 +14,7 @@ export class QuizService {
         {
           id: 1,
           text: 'Justin Trudeau',
+          image: './assets/images/mona_lisa.jpg',
           isAnswer: true,
         },
         {

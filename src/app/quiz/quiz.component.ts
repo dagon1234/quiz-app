@@ -17,6 +17,8 @@ export class QuizComponent {
   isEnd = false
   score = 0
 
+  usedAnswer: string[] = []
+
   constructor() {
     this.questions = this.quizService.getQuizData();
     this.audio.src = '../assets/audio/mixkit-arcade-retro-game-over-213.wav'
@@ -32,6 +34,7 @@ export class QuizComponent {
       this.isEnd = true
     } else {
       this.currentQuestionIndex++
+      this.usedAnswer.push(choice.text)
       this.questions[this.currentQuestionIndex].choices.sort((a, b) => 0.5 - Math.random())
     }
   }
@@ -51,6 +54,7 @@ export class QuizComponent {
     this.isEnd = false
     this.currentQuestionIndex = 0
     this.score = 0
+    this.usedAnswer = []
 
   }
 
