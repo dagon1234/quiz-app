@@ -57,7 +57,7 @@ export class QuizComponent {
     this.currentQuestionIndex = 0
     this.score = 0
     this.usedAnswer = []
-
+    this.usedQuestion = []
   }
 
 }
