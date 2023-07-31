@@ -17,6 +17,7 @@ export class AppComponent {
 
   constructor() {
     this.audio.src = './assets/audio/mixkit-arcade-retro-game-over-213.wav'
+    this.newQuiz()
   }
 
   onclickChoice(choice: Choice) {
@@ -32,10 +33,20 @@ export class AppComponent {
     }
   }
 
-  playSound() {
+  private playSound() {
     this.audio.load();
     this.audio.addEventListener('canplaythrough', () => {
       this.audio.play();
     })
   }
+
+  onclickNewQuiz() {
+    this.newQuiz()
+  }
+  private newQuiz() {
+    this.isEnd = false
+    this.currentQuestionIndex = 0
+    this.score = 0
+  }
+
 }
