@@ -41,7 +41,8 @@
                         <ul style="text-align: left;">
                             <div class="h3">
                                 <ng-container *ngFor="let item of usedQuestion; let i = index">
-                                    <li class="h4">
+                                    <li class="h4" [ngClass]="{'correct-answer': questions[currentQuestionIndex].choices[i].isAnswer, 
+                                        'wrong-answer': !questions[currentQuestionIndex].choices[i].isAnswer}">
                                         {{ item }}<br />
                                         : {{ usedAnswer[i] }}
                                     </li>

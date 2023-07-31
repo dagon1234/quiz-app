@@ -27,3 +27,12 @@ img {
     height: 200px;
     box-shadow: 5px 5px 10px gray;
 }
+
+/* quiz.component.css */
+.correct-answer {
+    color: green;
+}
+
+.wrong-answer {
+    color: red;
+}
