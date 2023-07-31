@@ -1,21 +1,11 @@
-<!--container-fluid g-0 to 5 -->
-<!-- my-1 to 5 บน && ล่าง-->
-<!-- mt-1 to 5 บน-->
-<!-- mb-1 to 5 ล่าง-->
-<div class="container">
-  <h2>Question 1 of 10</h2>
-  <h3 class="mb-5 mt-3">{{question.text}}</h3>
-  <div class="row g-2">
-    <!--12 ส่วน ความกว้างทั้งหน้าจอ
-    <div class="container-sm">100% wide until small breakpoint</div>
-    <div class="container-md">100% wide until medium breakpoint</div>
-    <div class="container-lg">100% wide until large breakpoint</div>
-    <div class="container-xl">100% wide until extra large breakpoint</div>
-    <div class="container-xxl">100% wide until extra extra large breakpoint</div> -->
-
-    <div *ngFor="let choice of question.choices" class="col-xs-12 col-md-6">
-      <button (click)="onclickChoice(choice)" class="btn btn-primary" style="width: 100%;">{{choice}}</button>
+<div class="main vertical-center">
+  <div class="container">
+    <h2>Question 1 of 10</h2>
+    <h3 class="mb-5 mt-3">{{question.text}}</h3>
+    <div class="row g-2">
+      <div *ngFor="let choice of question.choices" class="col-xs-12 col-md-6">
+        <button (click)="onclickChoice(choice)" class="btn btn-primary" style="width: 100%;">{{choice}}</button>
+      </div>
     </div>
-
   </div>
 </div>
