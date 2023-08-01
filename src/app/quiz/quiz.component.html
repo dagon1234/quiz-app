@@ -1,54 +1,42 @@
-<div class="main vertical-center">
-    <div class="btn-group">
-        <button class="btn btn-primary" [class.active]="showEachQuestionFlag" (click)="showEachQuestion()">Each
-            Question</button>
-        <button class="btn btn-primary" [class.active]="!showEachQuestionFlag" (click)="showQuestionList()">Question
-            List</button>
-    </div>
-
-    <ng-template [ngIf]="!isEnd" [ngIfElse]="showAll">
+<div>
+    <!-- แสดงคำถาม -->
+    <ng-template [ngIf]="!isEnd" [ngIfElse]="showScore">
         <div class="container" style="max-width: 800px;">
-            <h2>Question {{currentQuestionIndex + 1}} of {{questionsNoImage.length}}</h2>
-            <div *ngIf="!getCurrentQuestion().image" class="row g-2 mt-2">
-                <div class="mb-3 mt-3 h3">Q: {{getCurrentQuestion().text}}</div>
+            <h3>Question {{currentQuestionIndex + 1}} of {{questions.length}}</h3>
+            <h4 class="mb-3 mt-3">{{questions[currentQuestionIndex].text}}</h4>
 
-                <div class="col-xs-12 col-md-6 h3">
-                    <div *ngFor="let choice of getCurrentQuestion().choices">
-                        <div *ngIf="choice.isAnswer">
-                            A: {{choice.text}}
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col text-center">
+                    <!-- <img [src]="questions[currentQuestionIndex].image ?? 'data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs='"> -->
+                    <ng-template [ngIf]="questions[currentQuestionIndex].image">
+                        <img [src]="questions[currentQuestionIndex].image">
+                    </ng-template>
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center">
-                <!-- Use Bootstrap's "d-flex" and "justify-content-center" classes -->
-                <button class="btn btn-primary mr-2" (click)="onClickPrevious()">
-                    < Previous </button>
-                        <button class="btn btn-primary" (click)="onClickNext()">
-                            Next >
-                        </button>
+            <div class="row g-2 mt-2">
+                <div *ngFor="let choice of questions[currentQuestionIndex].choices" class="col-xs-12 col-md-6">
+                    <button (click)="onClickChoice(choice)" class="btn btn-primary" style="width: 100%;">
+                        {{choice.text}}
+                    </button>
+                </div>
             </div>
-
         </div>
     </ng-template>
 
-    <ng-template #showAll>
+    <!-- แสดงคะแนน -->
+    <ng-template #showScore>
         <div class="container" style="max-width: 800px;">
+
             <div class="row">
-                <div class="col-12">
-                    <ul style="text-align: left;">
-                        <li *ngFor="let question of questionsNoImage">
-                            <strong>{{ question.text }}</strong>
-                            <div *ngFor="let choice of question.choices">
-                                <div *ngIf="choice.isAnswer">
-                                    {{ choice.text }}
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                <div class="col-12 text-center h2">
+                    Your score: {{score}}
+                </div>
+                <div class="col-12 text-center h2">
+                    <button (click)="onClickNewQuiz()" class="btn btn-success">New Quiz</button>
                 </div>
             </div>
+
         </div>
     </ng-template>
 </div>

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { Choice } from './../choice';
-import { QuizService } from './../quiz.service';
-import { Question } from './../question';
+import { Question } from '../question';
+import { QuizService } from '../quiz.service';
+import { Choice } from '../choice';
 
 @Component({
   selector: 'app-quiz',
@@ -9,39 +9,35 @@ import { Question } from './../question';
   styleUrls: ['./quiz.component.css']
 })
 export class QuizComponent {
-  audio = new Audio()
+  audio = new Audio();
+  quizService: QuizService = inject(QuizService);
 
-  questions: Question[]
-  currentQuestionIndex = 0
-  isEnd = false
-  score = 0
+  questions: Question[] = [];
+  currentQuestionIndex = 0;
+  isEnd = false;
+  score = 0;
 
-  usedQuestion: string[] = []
-  usedAnswer: string[] = []
-  questionsNoImage: Question[];
-  showEachQuestionFlag = true;
-
-  constructor(private quizService: QuizService) {
-    this.questions = this.quizService.getQuizData();
-    this.audio.src = '../assets/audio/mixkit-arcade-retro-game-over-213.wav'
-    this.newQuiz()
-    this.questionsNoImage = this.quizService.getQuizDataNoImage();
+  constructor() {
+    //this.questions = this.quizService.getQuizData();
+    this.quizService.getQuizData().then((questions) => {
+      this.questions = questions;
+    });
+    this.audio.src = '../assets/audio/click.wav';
+    this.newQuiz();
   }
 
-  onclickChoice(choice: Choice, question: Question) {
-    this.playSound()
+  onClickChoice(choice: Choice) {
+    console.log('User clicked ' + choice.text);
 
-    if (choice.isAnswer) this.score++
+    this.playSound();
 
-    if (this.currentQuestionIndex == this.questions.length - 1) {
-      this.usedQuestion.push(question.text)
-      this.usedAnswer.push(choice.text)
-      this.isEnd = true
+    if (choice.isAnswer) this.score++;
+
+    if (this.currentQuestionIndex < this.questions.length - 1) {
+      this.currentQuestionIndex++;
+      this.questions[this.currentQuestionIndex].choices.sort((a, b) => 0.5 - Math.random());
     } else {
-      this.currentQuestionIndex++
-      this.questions[this.currentQuestionIndex].choices.sort((a, b) => 0.5 - Math.random())
-      this.usedQuestion.push(question.text)
-      this.usedAnswer.push(choice.text)
+      this.isEnd = true;
     }
   }
 
@@ -49,50 +45,17 @@ export class QuizComponent {
     this.audio.load();
     this.audio.addEventListener('canplaythrough', () => {
       this.audio.play();
-    })
+    });
   }
 
-  onclickNewQuiz() {
-    this.newQuiz()
+  onClickNewQuiz() {
+    this.newQuiz();
   }
+
   private newQuiz() {
-    this.questions.sort((a, b) => 0.5 - Math.random())
-    this.isEnd = false
-    this.currentQuestionIndex = 0
-    this.score = 0
-    this.usedAnswer = []
-    this.usedQuestion = []
-  }
-  getCurrentQuestion(): Question {
-    return this.questionsNoImage[this.currentQuestionIndex];
-  }
-
-  showEachQuestion(): void {
-    this.showEachQuestionFlag = true;
+    this.questions.sort((a, b) => 0.5 - Math.random());
     this.isEnd = false;
     this.currentQuestionIndex = 0;
-  }
-
-  showQuestionList(): void {
-    this.showEachQuestionFlag = false;
-    this.isEnd = true;
-  }
-
-  onClickNext(): void {
-    if (this.showEachQuestionFlag) {
-      if (this.currentQuestionIndex < this.questionsNoImage.length - 1) {
-        this.currentQuestionIndex++;
-      } else {
-        this.isEnd = true
-      }
-    }
-  }
-
-  onClickPrevious(): void {
-    if (this.showEachQuestionFlag) {
-      if (this.currentQuestionIndex > 0) {
-        this.currentQuestionIndex--;
-      }
-    }
+    this.score = 0;
   }
 }

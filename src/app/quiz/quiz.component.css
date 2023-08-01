@@ -1,38 +1,5 @@
-.main {
-    height: 100vh;
-    width: 100vw;
-    border: 0px solid red;
-    background: url('../../assets/images/bg.jpg') no-repeat center center fixed;
-    background-size: cover;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
-.vertical-center {
-    min-height: 100%;
-    /* Fallback for browsers do NOT support vh unit */
-    min-height: 100vh;
-    /* These two lines are counted as one :-)       */
-
-    display: flex;
-    align-items: center;
-}
-
 img {
     height: 200px;
-    box-shadow: 5px 5px 10px gray;
-}
-
-/* quiz.component.css */
-.correct-answer {
-    color: green;
-}
-
-.wrong-answer {
-    color: red;
+    box-shadow: 5px 5px 10px grey;
+    margin-bottom: 10px;
 }
